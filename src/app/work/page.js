@@ -179,6 +179,7 @@ export default function WorkPage() {
                 key={project.id}
                 className={sizeClass(project.size)}
                 data-category={project.category}
+                data-cursor-label="View"
                 ref={(el) => (cardRefs.current[project.id] = el)}
               >
                 <button

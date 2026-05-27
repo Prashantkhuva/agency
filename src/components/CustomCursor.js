@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
 const PREMIUM_EASE = '0.23, 1, 0.32, 1';
+const HOVER_SELECTOR = 'a, button, .service-item, .project-card';
 
 export default function CustomCursor() {
   const cursorRef = useRef(null);
@@ -22,7 +23,8 @@ export default function CustomCursor() {
     const target = { x: position.x, y: position.y };
     const state = { scale: 1 };
 
-    gsap.set(cursor, { xPercent: -50, yPercent: -50 });
+    // ✅ pointerEvents none add kiya — cursor apne events intercept na kare
+    gsap.set(cursor, { xPercent: -50, yPercent: -50, pointerEvents: 'none' });
     gsap.to(cursor, { opacity: 1, duration: 0.45, delay: 0.25 });
 
     const onMove = (e) => {
@@ -38,46 +40,48 @@ export default function CustomCursor() {
     };
     gsap.ticker.add(tick);
 
-    const setScale = (scale) => gsap.to(state, { scale, duration: 0.48, ease: `cubic-bezier(${PREMIUM_EASE})` });
+    const setScale = (scale) =>
+      gsap.to(state, { scale, duration: 0.48, ease: `cubic-bezier(${PREMIUM_EASE})` });
 
-    const hoverEls = document.querySelectorAll('a, button, .service-item, .project-card');
-    const hoverHandlers = [];
-    hoverEls.forEach((el) => {
-      const enter = () => setScale(3.8);
-      const leave = () => setScale(1);
-      el.addEventListener('mouseenter', enter);
-      el.addEventListener('mouseleave', leave);
-      hoverHandlers.push({ el, enter, leave });
-    });
+    // ✅ Event delegation — document pe ek listener
+    // Pehle wala querySelectorAll sirf mount pe chalta tha,
+    // work page ke dynamically rendered cards miss ho jaate the
+    const onMouseOver = (e) => {
+      if (cursor.contains(e.target)) return; // cursor ke apne events ignore karo
 
-    const cards = document.querySelectorAll('[data-cursor-label]');
-    const cardHandlers = [];
-    cards.forEach((card) => {
-      const enter = () => {
-        if (label) label.textContent = card.dataset.cursorLabel || 'View';
+      const cardEl = e.target.closest('[data-cursor-label]');
+      if (cardEl) {
+        if (label) label.textContent = cardEl.dataset.cursorLabel || 'View';
         gsap.to(state, { scale: 5.1, duration: 0.5 });
         gsap.to(label, { autoAlpha: 1, scale: 1, duration: 0.35 });
-      };
-      const leave = () => {
+        return;
+      }
+
+      if (e.target.closest(HOVER_SELECTOR)) setScale(3.8);
+    };
+
+    const onMouseOut = (e) => {
+      if (cursor.contains(e.target)) return;
+
+      const cardEl = e.target.closest('[data-cursor-label]');
+      if (cardEl && !cardEl.contains(e.relatedTarget)) {
         gsap.to(state, { scale: 1, duration: 0.5 });
         gsap.to(label, { autoAlpha: 0, scale: 0.85, duration: 0.25 });
-      };
-      card.addEventListener('mouseenter', enter);
-      card.addEventListener('mouseleave', leave);
-      cardHandlers.push({ card, enter, leave });
-    });
+        return;
+      }
+
+      const hoverEl = e.target.closest(HOVER_SELECTOR);
+      if (hoverEl && !hoverEl.contains(e.relatedTarget)) setScale(1);
+    };
+
+    document.addEventListener('mouseover', onMouseOver);
+    document.addEventListener('mouseout', onMouseOut);
 
     return () => {
       window.removeEventListener('mousemove', onMove);
       gsap.ticker.remove(tick);
-      hoverHandlers.forEach(({ el, enter, leave }) => {
-        el.removeEventListener('mouseenter', enter);
-        el.removeEventListener('mouseleave', leave);
-      });
-      cardHandlers.forEach(({ card, enter, leave }) => {
-        card.removeEventListener('mouseenter', enter);
-        card.removeEventListener('mouseleave', leave);
-      });
+      document.removeEventListener('mouseover', onMouseOver);
+      document.removeEventListener('mouseout', onMouseOut);
     };
   }, []);
 
