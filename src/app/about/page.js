@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import GSAPAnimations from '@/components/GSAPAnimations';
 
 export const metadata = {
@@ -80,6 +81,49 @@ export default function AboutPage() {
               <p>{pillar.body}</p>
             </div>
           ))}
+        </section>
+
+        {/* ── Founder ───────────────────────────────────────────── */}
+        <section className="px-4 sm:px-6 md:px-[var(--margin-edge)] pb-16 md:pb-[var(--section-gap)] grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-[var(--gutter-grid)]">
+          <div className="md:col-span-4 reveal-up">
+            <div className="relative overflow-hidden" style={{ aspectRatio: '3/4' }}>
+              <Image
+                src="/yash.jpg"
+                alt="Yash Jain — Co-Founder, Let'em Know"
+                fill
+                className="object-cover object-top brightness-95"
+                unoptimized
+              />
+            </div>
+          </div>
+          <div className="md:col-span-7 md:col-start-6 flex flex-col justify-end reveal-up">
+            <span className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent-bronze mb-4 block">
+              The Founder
+            </span>
+            <h2 className="font-grotesk font-bold tracking-tighter leading-[0.9] mb-6
+                           text-[clamp(2.5rem,6vw,5rem)]">
+              Yash Jain
+            </h2>
+            <div className="font-grotesk text-base md:text-lg text-text-muted space-y-4 max-w-lg">
+              <p>
+                Yash started Let&apos;em Know after founding a streetwear brand at 18
+                and generating ₹3L on his first drop. He knows what it takes to build
+                something from nothing — and what separates brands that stick from ones
+                that just shout.
+              </p>
+              <p>
+                Since then, he&apos;s worked with brands like Chaayos, Cosco, and
+                Salescode.ai — building systems that make content feel intentional,
+                not accidental.
+              </p>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <span className="service-tag">Co-Founder</span>
+              <span className="service-tag">D2C</span>
+              <span className="service-tag">Brand Strategy</span>
+              <span className="service-tag">Delhi / Gurugram</span>
+            </div>
+          </div>
         </section>
 
         {/* ── Selected Clients ──────────────────────────────────── */}
