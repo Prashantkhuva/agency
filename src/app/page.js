@@ -175,16 +175,26 @@ export default function HomePage() {
 
         {/* ── Services ──────────────────────────────────────────── */}
         <section className="px-4 sm:px-6 md:px-[var(--margin-edge)] py-16 md:py-[var(--section-gap)]">
-          <div className="flex justify-between items-end mb-8 md:mb-12 reveal-up">
-            <span className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent-bronze">
-              What We Do
-            </span>
-          </div>
+          <span className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent-bronze mb-8 md:mb-12 block reveal-up">
+            What We Do
+          </span>
           <div className="reveal-up">
             {services.map((s, i) => (
-              <div key={i} className="code-line">
-                <span>{s.title}</span>
-                <small>{s.desc}</small>
+              <div
+                key={i}
+                className="flex flex-col md:flex-row md:items-center md:justify-between
+                           border-t border-[rgba(17,17,17,0.1)] py-6 md:py-8
+                           last:border-b group hover:pl-4 transition-all duration-500"
+              >
+                <div className="flex items-baseline gap-4 mb-2 md:mb-0">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-text-muted">{s.num}</span>
+                  <h3 className="font-grotesk font-bold tracking-tighter text-[clamp(1.5rem,4vw,3rem)] leading-none group-hover:text-accent-bronze transition-colors duration-500">
+                    {s.title}
+                  </h3>
+                </div>
+                <p className="font-grotesk text-sm md:text-base text-text-muted md:max-w-xs leading-relaxed pl-8 md:pl-0">
+                  {s.desc}
+                </p>
               </div>
             ))}
           </div>
