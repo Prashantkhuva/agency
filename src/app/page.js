@@ -21,14 +21,62 @@ const marqueeItems = [
   { type: 'word', text: 'Strategy With Taste' },
 ];
 
+const projects = [
+  {
+    tag: 'Campaign System',
+    title: 'Chai, Camera, Conversion',
+    img: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=85&w=1400',
+    alt: 'Campaign team reviewing creator content and brand visuals',
+    span: 'md:col-span-7',
+    offset: '',
+  },
+  {
+    tag: 'Founder Content',
+    title: 'Face First Brand Building',
+    img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=85&w=1200',
+    alt: 'Founder content studio with laptops and campaign notes',
+    span: 'md:col-span-5',
+    offset: 'md:mt-32',
+  },
+  {
+    tag: 'Brand Identity',
+    title: 'Positioning That Sticks',
+    img: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&q=85&w=1200',
+    alt: 'Brand identity design and strategy session',
+    span: 'md:col-span-5',
+    offset: '',
+  },
+  {
+    tag: 'Social Strategy',
+    title: 'The Algorithm Doesn\'t Lie',
+    img: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=85&w=1400',
+    alt: 'Social media strategy and content planning',
+    span: 'md:col-span-7',
+    offset: 'md:mt-24',
+  },
+];
+
+const services = [
+  { num: '01', title: 'Brand Strategy', desc: 'Positioning, messaging, and the story only your brand can tell.' },
+  { num: '02', title: 'Founder Content', desc: 'Face-first content that builds trust before the sales call happens.' },
+  { num: '03', title: 'Campaign Systems', desc: 'Repeatable content machines — not one-off posts.' },
+  { num: '04', title: 'Identity Design', desc: 'Visual language that makes you impossible to ignore or forget.' },
+];
+
+const stats = [
+  { num: '50+', label: 'Clients Served' },
+  { num: '3+', label: 'Years Running' },
+  { num: '100%', label: 'Founder-Led' },
+];
+
 export default function HomePage() {
   return (
     <>
       <GSAPAnimations />
       <main>
+
         {/* ── Hero ─────────────────────────────────────────────── */}
         <section className="home-hero min-h-screen flex flex-col justify-center px-4 sm:px-6 md:px-[var(--margin-edge)] pt-24 md:pt-32 pb-16">
-          {/* Service tags */}
           <div
             className="mb-6 md:mb-[var(--stack-lg)] flex flex-wrap gap-2 md:gap-[var(--stack-md)] reveal-up service-tag-group"
             aria-label="Agency location and availability"
@@ -38,7 +86,6 @@ export default function HomePage() {
             <span className="service-tag">Founder-led</span>
           </div>
 
-          {/* Hero heading */}
           <div className="max-w-[1280px] reveal-trigger">
             <h1 className="hero-title font-grotesk tracking-tighter text-text-ink font-extrabold leading-[0.9]
                            text-[clamp(2.75rem,9vw,7.5rem)]">
@@ -47,7 +94,6 @@ export default function HomePage() {
             </h1>
           </div>
 
-          {/* Sub-copy + CTA link */}
           <div className="mt-6 md:mt-[var(--stack-lg)] flex flex-col md:flex-row justify-between items-start gap-6 md:gap-0 reveal-up">
             <p className="font-grotesk text-base md:text-lg max-w-lg text-text-ink leading-relaxed">
               Strategy, identity, campaigns, and founder-led content from a creative studio that
@@ -69,7 +115,6 @@ export default function HomePage() {
 
         {/* ── Selected Work ─────────────────────────────────────── */}
         <section className="py-16 md:py-[var(--section-gap)] px-4 sm:px-6 md:px-[var(--margin-edge)]">
-          {/* Section header */}
           <div className="flex justify-between items-end mb-8 md:mb-[var(--stack-lg)] reveal-up">
             <h2 className="font-grotesk text-2xl md:text-4xl tracking-tighter font-bold">
               Selected Work
@@ -79,63 +124,74 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* Project cards grid */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-[var(--gutter-grid)]">
-            {/* Card 1 — large */}
-            <Link
-              href="/work"
-              className="md:col-span-7 reveal-up project-card"
-              data-cursor-label="View"
-            >
-              <div className="relative overflow-hidden mb-4 md:mb-[var(--stack-md)]">
-                <Image
-                  alt="Campaign team reviewing creator content and brand visuals"
-                  className="w-full aspect-[4/5] sm:aspect-[3/2] md:aspect-[4/5] object-cover brightness-90 transition-all duration-700"
-                  src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=85&w=1400"
-                  width={1400}
-                  height={1750}
-                  unoptimized
-                />
-              </div>
-              <span className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-text-muted">
-                Campaign System
-              </span>
-              <h3 className="font-grotesk font-bold tracking-tighter leading-[0.92]
-                             text-[clamp(2rem,5.5vw,3.5rem)]">
-                Chai, Camera, Conversion
-              </h3>
-            </Link>
+            {projects.map((p, i) => (
+              <Link
+                key={i}
+                href="/work"
+                className={`${p.span} ${p.offset} reveal-up project-card`}
+                data-cursor-label="View"
+              >
+                <div className="relative overflow-hidden mb-4 md:mb-[var(--stack-md)]">
+                  <Image
+                    alt={p.alt}
+                    className="w-full aspect-[4/5] sm:aspect-[3/2] md:aspect-[4/5] object-cover brightness-90 transition-all duration-700"
+                    src={p.img}
+                    width={1400}
+                    height={1750}
+                    unoptimized
+                  />
+                </div>
+                <span className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-text-muted">
+                  {p.tag}
+                </span>
+                <h3 className="font-grotesk font-bold tracking-tighter leading-[0.92]
+                               text-[clamp(1.75rem,4.5vw,3.25rem)]">
+                  {p.title}
+                </h3>
+              </Link>
+            ))}
+          </div>
+        </section>
 
-            {/* Card 2 — small, offset */}
-            <Link
-              href="/work"
-              className="md:col-span-5 md:mt-32 reveal-up project-card"
-              data-cursor-label="View"
-            >
-              <div className="relative overflow-hidden mb-4 md:mb-[var(--stack-md)]">
-                <Image
-                  alt="Founder content studio with laptops and campaign notes"
-                  className="w-full aspect-[4/5] sm:aspect-[3/2] md:aspect-[4/5] object-cover brightness-90 transition-all duration-700"
-                  src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=85&w=1200"
-                  width={1200}
-                  height={1500}
-                  unoptimized
-                />
+        {/* ── Stats ─────────────────────────────────────────────── */}
+        <section className="px-4 sm:px-6 md:px-[var(--margin-edge)] py-16 md:py-24 border-t border-b border-[rgba(17,17,17,0.08)]">
+          <div className="grid grid-cols-3 gap-0 reveal-up">
+            {stats.map((s, i) => (
+              <div
+                key={i}
+                className={`text-center py-4 ${i < stats.length - 1 ? 'border-r border-[rgba(17,17,17,0.1)]' : ''}`}
+              >
+                <p className="font-garamond italic text-[clamp(2.5rem,7vw,6rem)] font-normal leading-none text-text-ink mb-2">
+                  {s.num}
+                </p>
+                <p className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-text-muted">
+                  {s.label}
+                </p>
               </div>
-              <span className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-text-muted">
-                Founder Content
-              </span>
-              <h3 className="font-grotesk font-bold tracking-tighter leading-[0.95]
-                             text-[clamp(1.75rem,4.5vw,3rem)]">
-                Face First Brand Building
-              </h3>
-            </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Services ──────────────────────────────────────────── */}
+        <section className="px-4 sm:px-6 md:px-[var(--margin-edge)] py-16 md:py-[var(--section-gap)]">
+          <div className="flex justify-between items-end mb-8 md:mb-12 reveal-up">
+            <span className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent-bronze">
+              What We Do
+            </span>
+          </div>
+          <div className="reveal-up">
+            {services.map((s, i) => (
+              <div key={i} className="code-line">
+                <span>{s.title}</span>
+                <small>{s.desc}</small>
+              </div>
+            ))}
           </div>
         </section>
 
         {/* ── Taste Before Volume ───────────────────────────────── */}
         <section className="px-4 sm:px-6 md:px-[var(--margin-edge)] pb-16 md:pb-[var(--section-gap)] grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-[var(--gutter-grid)]">
-          {/* Left col */}
           <div className="md:col-span-5 reveal-up">
             <span className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-accent-bronze mb-3 md:mb-[var(--stack-md)] block">
               Founder-led
@@ -145,11 +201,14 @@ export default function HomePage() {
               Taste before volume.
             </h2>
           </div>
-          {/* Right col */}
           <div className="md:col-span-6 md:col-start-7 reveal-up font-grotesk text-base md:text-lg text-text-muted space-y-4 md:space-y-[var(--stack-md)]">
             <p>
               Let&apos;em Know® works with brands, founders, and creators who need sharper positioning,
               stronger systems, and content that does not feel borrowed.
+            </p>
+            <p>
+              We don&apos;t produce volume. We build presence — the kind that compounds over time and
+              makes the right people stop scrolling.
             </p>
             <Link href="/about" className="nav-link inline-flex text-sm md:text-base">
               Read About
@@ -176,6 +235,7 @@ export default function HomePage() {
             </a>
           </div>
         </section>
+
       </main>
     </>
   );
