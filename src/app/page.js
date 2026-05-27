@@ -53,10 +53,7 @@ export default function HomePage() {
               Strategy, identity, campaigns, and founder-led content from a creative studio that
               understands the feed and the room.
             </p>
-            <Link
-              href="/work"
-              className="flex gap-3 items-center group"
-            >
+            <Link href="/work" className="flex gap-3 items-center group">
               <span className="font-mono text-xs md:text-sm uppercase tracking-widest border-b border-text-ink group-hover:text-accent-bronze group-hover:border-accent-bronze transition-all">
                 See the Work
               </span>
